@@ -1,8 +1,3 @@
-'''
-Created on 2017/11/05
-
-@author: Home
-'''
 import configparser
 import os, shutil, csv, time
 import xml.etree.ElementTree as ET
@@ -19,18 +14,8 @@ surefire_report_path = cf.get("file_path", "surefire_report_path")
 surefire_report_file = cf.get("file_path", "surefire_report_file")
 final_report_path = cf.get("file_path", "final_report_path")
 
-# junit_prj_base = "C:\\Users\\jimuc\\eclipse-workspace\\junit\\"
-# asgs_base = "C:\\asgs\\"
-# file_name = "App.java"
-# package_path = "src\\main\\java\\com\\test\\junit\\"
-# surefire_report_path = "target\\surefire-reports\\"
-# surefire_report_file = "TEST-com.test.junit.AppTest.xml"
-# final_report_path = "C:\\asgs_reports"
-
-junit_prj_file_path = os.path.join(junit_prj_base, package_path)
-surefire_report_file_full_path = os.path.join(junit_prj_base, surefire_report_path, surefire_report_file)
-
 def copy_file_and_test(src_file, stu_number):
+    junit_prj_file_path = os.path.join(junit_prj_base, package_path)
     if not os.path.isfile(src_file):
         print("File not exists under path " + stu_number)
         return False
@@ -60,6 +45,7 @@ def analyze_mvn_output(mvn_output, stu_number, stat_file, report_path):
         process_report(stu_number, stat_file, report_path)
         
 def process_report(stu_number, stat_file, report_path):
+    surefire_report_file_full_path = os.path.join(junit_prj_base, surefire_report_path, surefire_report_file)
     if not os.path.isfile(surefire_report_file_full_path):
         return
     shutil.copy(surefire_report_file_full_path, report_path)
