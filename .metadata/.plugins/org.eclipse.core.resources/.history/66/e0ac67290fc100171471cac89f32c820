@@ -1,0 +1,11 @@
+import os
+junit_prj_base = "C:\\Users\\jimuc\\eclipse-workspace\\junit\\src\\main\\java\\com\\test\\junit\\"
+asgs_base = "C:\\asgs\\"
+file_name = "App.java"
+
+asg_list = os.listdir(asgs_base)
+for i in asg_list:
+    stu_number = i
+    stu_file = asgs_base + i + "\\" + file_name
+    
+

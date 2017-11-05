@@ -1,0 +1,28 @@
+-- VERSION_4
+-- START DISKCACHE_2
+C:\Users\jimuc\eclipse-workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\marking\com.python.pydev.analysis\v2_indexcache
+draft.__init__|1509806988260583000|C:\Users\jimuc\eclipse-workspace\marking\draft\__init__.py
+-- END DISKCACHE
+-- START DICTIONARY
+1
+1=draft.__init__
+-- END DICTIONARY
+-- START TREE 1
+13
+ana|1|analyze_mvn_output!10@
+asg|1|asgs_base!11@
+cop|1|copy_file_and_test!10@
+exe|1|execute_maven!10@
+fil|1|file_name!11@
+fin|1|final_report_path!11@
+jun|2|junit_prj_file_path!11@junit_prj_base!11@
+pac|1|package_path!11@
+par|1|parse_report!10@
+pro|1|process_report!10@
+sta|1|start_marking!10@
+sur|3|surefire_report_file_full_path!11@surefire_report_file!11@surefire_report_path!11@
+wri|1|write_to_csv!10@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

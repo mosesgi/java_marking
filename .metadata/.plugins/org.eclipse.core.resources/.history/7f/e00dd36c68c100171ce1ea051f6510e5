@@ -1,0 +1,77 @@
+import os, shutil
+import xml.etree.ElementTree as ET
+junit_prj_base = "C:\\Users\\jimuc\\eclipse-workspace\\junit\\"
+asgs_base = "C:\\asgs\\"
+file_name = "App.java"
+package_path = "src\\main\\java\\com\\test\\junit\\"
+surefire_report_path = "target\\surefire-reports\\"
+surefire_report_file = "TEST-com.test.junit.AppTest.xml"
+final_report_path = "C:\\asgs_reports"
+
+junit_prj_file_path = junit_prj_base + package_path
+surefire_report_file_full_path = junit_prj_base + surefire_report_path + surefire_report_file
+
+def copy_file_and_test(src_file, stu_number):
+    if not os.path.isfile(src_file):
+        print("File not exists under path " + stu_number)
+        return False
+    prj_file = junit_prj_file_path + file_name
+    if os.path.exists(prj_file):
+        os.remove(prj_file)
+    shutil.copy(src_file, junit_prj_file_path)
+    return True
+    
+def execute_maven():
+    os.chdir(junit_prj_base)
+    mvn_cmd = "mvn clean test"
+    return_result = os.popen(mvn_cmd)
+    return_str = return_result.read()
+    return_result.close()
+    return return_str
+    
+def analyze_mvn_output(mvn_output, stu_number):
+    success_str = "[INFO] BUILD SUCCESS"
+    failure_str = "[INFO] BUILD FAILURE"
+    compilation_error = "[ERROR] COMPILATION ERROR"
+    if success_str in mvn_output:
+        store_report(stu_number)
+    elif compilation_error in mvn_output:
+        print("Failed when running test for student: " + stu_number)
+    else:
+        store_report(stu_number)
+        
+def store_report(stu_number):
+    if(not os.path.isfile(surefire_report_file_full_path)):
+        return
+    shutil.copy(surefire_report_file_full_path, final_report_path)
+    stu_report_file_name = stu_number + ".xml"
+    os.rename(os.path.join(final_report_path, surefire_report_file), os.path.join(final_report_path, stu_report_file_name))
+    
+    
+def parse_report(stu_file_name):
+    if not os.path.exists(stu_file_name) or not os.path.isfile(stu_file_name):
+        return
+    tree = ET.parse(stu_file_name)
+    root = tree.getroot()
+    attrs = root.attrib
+    print("tests: " + attrs['tests'])
+    print("failures: " + attrs['failures'])
+    print("errors: " + attrs['errors'])
+    print("skipped: " + attrs['skipped'])
+    
+def write_to_csv():
+    
+def start_marking():
+    asg_list = os.listdir(asgs_base)
+    for i in asg_list:
+        stu_number = i
+        stu_file_path = asgs_base + i + "\\" + file_name
+        print(stu_file_path)
+        succ = copy_file_and_test(stu_file_path, stu_number)
+        if not succ:
+            continue
+        return_str = execute_maven()
+        analyze_mvn_output(return_str, stu_number)
+    
+# start_marking()
+parse_report("C:\\asgs_reports\\1001.xml")

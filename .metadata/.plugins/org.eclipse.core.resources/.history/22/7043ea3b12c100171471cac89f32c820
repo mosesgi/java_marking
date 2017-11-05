@@ -1,0 +1,19 @@
+import os
+junit_prj_base = "C:\\Users\\jimuc\\eclipse-workspace\\junit\\src\\main\\java\\com\\test\\junit\\"
+asgs_base = "C:\\asgs\\"
+file_name = "App.java"
+
+def copy_file_and_test(src_file, stu_number):
+    if os.path.isfile(src_file):
+        print("File exists under path " + stu_number)
+    else:
+        print("File not exists under path " + stu_number)
+        return
+
+asg_list = os.listdir(asgs_base)
+for i in asg_list:
+    stu_number = i
+    stu_file_path = asgs_base + i + "\\" + file_name
+    print(stu_file_path)
+    copy_file_and_test(stu_file_path, stu_number)
+    

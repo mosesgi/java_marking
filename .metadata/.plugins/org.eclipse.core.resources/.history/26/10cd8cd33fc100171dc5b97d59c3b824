@@ -1,0 +1,31 @@
+import os, shutil
+junit_prj_base = "C:\\Users\\jimuc\\eclipse-workspace\\junit\\"
+asgs_base = "C:\\asgs\\"
+file_name = "App.java"
+package_path = "src\\main\\java\\com\\test\\junit\\"
+junit_prj_file_path = junit_prj_base + package_path
+
+def copy_file_and_test(src_file, stu_number):
+    if not os.path.isfile(src_file):
+        print("File not exists under path " + stu_number)
+        return
+    prj_file = junit_prj_file_path + file_name
+    if os.path.exists(prj_file):
+        os.remove(prj_file)
+    shutil.copy(src_file, junit_prj_file_path)
+    print("File copied successfully")
+    
+def execute_maven():
+    os.chdir(junit_prj_base)
+    mvn_cmd = "mvn clean test"
+    os.popen()
+    
+    
+
+asg_list = os.listdir(asgs_base)
+for i in asg_list:
+    stu_number = i
+    stu_file_path = asgs_base + i + "\\" + file_name
+    print(stu_file_path)
+    copy_file_and_test(stu_file_path, stu_number)
+    
